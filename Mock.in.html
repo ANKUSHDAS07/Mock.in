@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mock.in Quiz</title>
+  <style>
+    body {
+      background: #1a202c;
+      color: white;
+      font-family: sans-serif;
+      text-align: center;
+      padding: 2rem;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+    }
+    button {
+      background: #4a90e2;
+      color: white;
+      border: none;
+      padding: 14px 24px;
+      margin: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.1rem;
+    }
+    .option-btn {
+      background: #444;
+      border: 1px solid #666;
+      margin: 5px;
+      padding: 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.1rem;
+    }
+    .option-btn:hover {
+      background: #555;
+    }
+    h1, h2, p {
+      font-size: 1.5rem;
+    }
+    h1 {
+      font-size: 2.5rem;
+    }
+    .fade-in {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div id="app" class="container"></div>
+  <script>
+    const questions = {
+      easy: [
+        { q: "What is 2 + 2?", options: ["3", "4", "5", "6"], correct: 1 },
+        { q: "What color is the sky?", options: ["Blue", "Green", "Red", "Yellow"], correct: 0 },
+        { q: "How many legs does a spider have?", options: ["6", "8", "10", "12"], correct: 1 },
+        { q: "Which animal barks?", options: ["Cat", "Cow", "Dog", "Sheep"], correct: 2 },
+        { q: "Capital of India?", options: ["Delhi", "Mumbai", "Kolkata", "Chennai"], correct: 0 },
+        { q: "Which planet do we live on?", options: ["Mars", "Earth", "Jupiter", "Venus"], correct: 1 },
+        { q: "Shape with 3 sides?", options: ["Square", "Triangle", "Circle", "Hexagon"], correct: 1 },
+        { q: "What do bees make?", options: ["Milk", "Honey", "Bread", "Water"], correct: 1 },
+        { q: "Drink to stay healthy?", options: ["Water", "Juice", "Tea", "Soda"], correct: 0 },
+        { q: "What is 5 - 3?", options: ["1", "2", "3", "4"], correct: 1 }
+      ],
+      medium: [
+        { q: "Capital of France?", options: ["Berlin", "Paris", "Rome", "Madrid"], correct: 1 },
+        { q: "Boiling point of water?", options: ["90°C", "100°C", "110°C", "120°C"], correct: 1 },
+        { q: "How many continents?", options: ["5", "6", "7", "8"], correct: 2 },
+        { q: "Square root of 64?", options: ["6", "7", "8", "9"], correct: 2 },
+        { q: "Who discovered gravity?", options: ["Einstein", "Newton", "Galileo", "Tesla"], correct: 1 },
+        { q: "H2O is?", options: ["Oxygen", "Hydrogen", "Water", "Salt"], correct: 2 },
+        { q: "Which organ pumps blood?", options: ["Lungs", "Brain", "Heart", "Liver"], correct: 2 },
+        { q: "Plants absorb?", options: ["Oxygen", "CO2", "Nitrogen", "Hydrogen"], correct: 1 },
+        { q: "Largest planet?", options: ["Earth", "Mars", "Jupiter", "Venus"], correct: 2 },
+        { q: "Currency of Japan?", options: ["Yuan", "Won", "Yen", "Dollar"], correct: 2 },
+        { q: "Thermometer measures?", options: ["Speed", "Temp", "Length", "Pressure"], correct: 1 },
+        { q: "Liquid metal?", options: ["Mercury", "Gold", "Iron", "Silver"], correct: 0 },
+        { q: "Sun is a?", options: ["Planet", "Star", "Moon", "Asteroid"], correct: 1 },
+        { q: "What causes tides?", options: ["Sun", "Rain", "Moon's gravity", "Winds"], correct: 2 },
+        { q: "Vitamin from sun?", options: ["A", "B", "C", "D"], correct: 3 }
+      ],
+      hard: [
+        { q: "Derivative of x^2?", options: ["x", "2x", "x^2", "1"], correct: 1 },
+        { q: "Speed of light?", options: ["3x10^8", "3x10^6", "3x10^5", "3x10^7"], correct: 0 },
+        { q: "Who proposed E=mc^2?", options: ["Newton", "Einstein", "Tesla", "Hawking"], correct: 1 },
+        { q: "Atomic number of Oxygen?", options: ["6", "7", "8", "9"], correct: 2 },
+        { q: "Which is a noble gas?", options: ["Oxygen", "Nitrogen", "Argon", "Hydrogen"], correct: 2 },
+        { q: "SI unit of pressure?", options: ["Pascal", "Newton", "Joule", "Bar"], correct: 0 },
+        { q: "Negative particle?", options: ["Proton", "Electron", "Neutron", "Atom"], correct: 1 },
+        { q: "Element with symbol Fe?", options: ["Iron", "Gold", "Silver", "Lead"], correct: 0 },
+        { q: "SI unit of force?", options: ["Newton", "Pascal", "Joule", "Watt"], correct: 0 },
+        { q: "Planet with rings?", options: ["Mars", "Earth", "Saturn", "Neptune"], correct: 2 },
+        { q: "Square root of 144?", options: ["10", "11", "12", "13"], correct: 2 },
+        { q: "Filters blood?", options: ["Liver", "Heart", "Kidneys", "Lungs"], correct: 2 },
+        { q: "Formula for speed?", options: ["Speed=Distance/Time", "Force=MassxAcc", "Power=Work/Time", "Energy=mc^2"], correct: 0 },
+        { q: "Main gas in air?", options: ["Oxygen", "CO2", "Nitrogen", "Hydrogen"], correct: 2 },
+        { q: "Hardest substance?", options: ["Iron", "Steel", "Diamond", "Granite"], correct: 2 },
+        { q: "Gold symbol?", options: ["Au", "Ag", "Gd", "Go"], correct: 0 },
+        { q: "Organ for breathing?", options: ["Heart", "Lungs", "Liver", "Brain"], correct: 1 },
+        { q: "Value of π?", options: ["3.12", "3.14", "3.16", "3.18"], correct: 1 },
+        { q: "Most conductive metal?", options: ["Copper", "Silver", "Gold", "Aluminum"], correct: 1 },
+        { q: "Closest planet to sun?", options: ["Venus", "Earth", "Mercury", "Mars"], correct: 2 }
+      ]
+    };
+
+    const app = document.getElementById("app");
+    let currentSet = [];
+    let currentIndex = 0;
+    let score = 0;
+    let page = 'home';
+
+    function render() {
+      if (page === 'home') {
+        app.innerHTML = `
+          <div class="fade-in">
+            <h1>Mock.in 🚀</h1>
+            <p>Welcome to Mock.in Quiz!</p>
+            <button onclick="page='mode'; render()">Start Quiz</button>
+          </div>
+        `;
+      } else if (page === 'mode') {
+        app.innerHTML = `
+          <div class="fade-in">
+            <h2>Choose Difficulty</h2>
+            <button onclick="startQuiz('easy')">Easy</button>
+            <button onclick="startQuiz('medium')">Medium</button>
+            <button onclick="startQuiz('hard')">Hard</button>
+            <br><button onclick="page='home'; render()">Back</button>
+          </div>
+        `;
+      } else if (page === 'quiz') {
+        showQuestion();
+      } else if (page === 'result') {
+        showResult();
+      }
+    }
+
+    function startQuiz(level) {
+      currentSet = questions[level];
+      currentIndex = 0;
+      score = 0;
+      page = 'quiz';
+      render();
+    }
+
+    function showQuestion() {
+      const q = currentSet[currentIndex];
+      app.innerHTML = `
+        <div class="fade-in">
+          <h2>Question ${currentIndex + 1} of ${currentSet.length}</h2>
+          <p>${q.q}</p>
+          ${q.options.map((opt, i) => `<div><button class="option-btn" onclick="checkAnswer(${i})">${opt}</button></div>`).join('')}
+          <button onclick="page='mode'; render()">Back</button>
+        </div>
+      `;
+    }
+
+    function checkAnswer(selected) {
+      const correct = currentSet[currentIndex].correct;
+      if (selected === correct) score++;
+      currentIndex++;
+      if (currentIndex < currentSet.length) {
+        showQuestion();
+      } else {
+        page = 'result';
+        render();
+      }
+    }
+
+    function showResult() {
+      app.innerHTML = `
+        <div class="fade-in">
+          <h2>Quiz Finished!</h2>
+          <p>Your Score: ${score} / ${currentSet.length}</p>
+          <button onclick="page='home'; render()">Back to Home</button>
+        </div>
+      `;
+    }
+
+    render();
+  </script>
+</body>
+</html>
